@@ -90,8 +90,73 @@ Prototype and build IoT systems without setting up servers or developing web sof
 
  
 # PROGRAM:
+```
+#include <WiFi.h>
+#include "ThingSpeak.h"
+#define ldr_pin 34
+
+char ssid[] = "Akshay"; 
+char pass[] = "Loid D Ackerman :)";
+int keyIndex = 0;
+WiFiClient  client;
+
+unsigned long myChannelNumber =  2788340;
+const int ChannelField = 1;
+const char * myWriteAPIKey = "Y2YROF4BS19UCV3I";
+
+int ldrValue = 0;
+int lightPercentage = 0;
+
+const int darkValue = 4095;
+const int brightValue = 0;  
+
+
+void setup() 
+{
+  Serial.begin(115200);
+  pinMode(ldr_pin, INPUT);
+  WiFi.mode(WIFI_STA);   
+  ThingSpeak.begin(client);
+}
+
+void loop() 
+{
+  if(WiFi.status() != WL_CONNECTED)
+{
+    Serial.print("Attempting to connect to SSID: ");
+    
+    while(WiFi.status() != WL_CONNECTED)
+    {
+      WiFi.begin(ssid, pass); 
+      Serial.print(".");
+      delay(5000);     
+    } 
+    Serial.println("\nConnected.");
+  }
+
+  int ldrValue= analogRead(ldr_pin);  
+  
+  lightPercentage = map(ldrValue, darkValue, brightValue, 0, 100);
+
+  lightPercentage = constrain(lightPercentage, 0, 100);
+  Serial.println("Intensity=");
+  Serial.println(lightPercentage);    
+  Serial.println("%");
+  
+  ThingSpeak.writeField(myChannelNumber, ChannelField, lightPercentage, myWriteAPIKey);
+  delay(5000); 
+}
+```
 # CIRCUIT DIAGRAM:
+
+<img src="https://github.com/user-attachments/assets/1b47c13f-6ee4-4f51-95cb-770f78b21104" width="600">
+
 # OUTPUT:
+
+<img src="https://github.com/user-attachments/assets/57961e34-637e-40ab-af76-4d01f391893a" width="800">
+
+<img src="https://github.com/user-attachments/assets/986e2a53-cb09-435f-bd49-965668560500" width="600">
+
 # RESULT:
 
 Thus the light intensity values are updated in the Thing speak cloud using ESP32 controller.
