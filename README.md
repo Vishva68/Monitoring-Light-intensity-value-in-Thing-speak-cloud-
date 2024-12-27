@@ -1,6 +1,10 @@
 # Monitoring-Light-intensity-value-in-Thing-speak-cloud
 # Uploading LDR sensor data in Thing Speak cloud
 
+NAME:Vishvanandh N
+
+REGISTER NUMBER:24005857
+
 # AIM:
 To monitor the Light-intensity value in the Thing speak cloud using LDR sensor and ESP32 controller.
 # Apparatus required:
@@ -95,8 +99,8 @@ Prototype and build IoT systems without setting up servers or developing web sof
 #include "ThingSpeak.h"
 #define ldr_pin 34
 
-char ssid[] = "Akshay"; 
-char pass[] = "Loid D Ackerman :)";
+char ssid[] = "Vichu"; 
+char pass[] = "vichu06.";
 int keyIndex = 0;
 WiFiClient  client;
 
